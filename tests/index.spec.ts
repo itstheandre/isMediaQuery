@@ -35,11 +35,13 @@ describe("isMediaQuery", () => {
       it("if args are undefined", () => {
         // @ts-expect-error
         expect(() => isMediaQuery(undefined, undefined)).toThrow();
+        // @ts-ignore
         expect(() => isMediaQuery(undefined)).toThrow();
       });
       it("if args are null", () => {
         // @ts-expect-error
         expect(() => isMediaQuery(null, null)).toThrow();
+        // @ts-ignore
         expect(() => isMediaQuery(null)).toThrow();
       });
       it("if there is combination that is bad", () => {
