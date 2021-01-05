@@ -73,6 +73,8 @@ describe("isMediaQuery", () => {
     it("just works", () => {
       const first = isMediaQuery("(min-width: 960px)");
       expect(first).toBeTruthy();
+      // doesnt work because it needs the parenthesis
+      // TODO Would be interesting to, eventually, add a way for these things to be transformed into the right one.
       expect(isMediaQuery("min-width: 950px")).toBe(false);
       expect(isMediaQuery("(max-height: 960px)")).toBeTruthy();
       expect(
