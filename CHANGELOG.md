@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/itstheandre/isMediaQuery/compare/v1.1.0...v1.1.1) (2021-01-05)
+
+
+### Bug Fixes
+
+* **error-handling:** remove the error if first argument is string ([3818b44](https://github.com/itstheandre/isMediaQuery/commit/3818b44bece05c71c1c5b3cc0ca7ace8861bc4b8))
+* **fix-error:** fix isMediaQuery throwing error when not necessary ([811d8ad](https://github.com/itstheandre/isMediaQuery/commit/811d8ad1cdcb226501a0f3c5f6778ff06ad2ddf8))
+
 # [1.1.0](https://github.com/itstheandre/isMediaQuery/compare/v1.0.0...v1.1.0) (2021-01-05)
 
 
