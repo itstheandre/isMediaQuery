@@ -4,6 +4,7 @@ describe("isMediaQuery", () => {
   it("is defined", () => {
     expect(isMediaQuery).toBeDefined();
   });
+  //
   describe("Error States", () => {
     it("fails with no argus", () => {
       // @ts-expect-error
