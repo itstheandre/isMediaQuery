@@ -1,0 +1,90 @@
+name: Release 🚀
+on:
+  pull_request:
+    branches: master
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_test:
+    name: 🏗️ Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 💸 Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: $-node-$
+          restore-keys: |
+            $-node
+      - name: 🏗️ Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: 🤹‍♂️ Setup PNPM
+        uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 5.13.6
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile]
+      - name: 🛠️ Build
+        run: pnpm run build
+      - name: 🧪 Test
+        run: pnpm run test:ci
+      - name: 📦 ZIP Coverage and Build
+        if: github.event_name == 'push'
+        run: |
+          zip -r coverage.zip ./coverage
+          zip -r build.zip ./dist
+      - name: 🆙Load Test Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
+      - name: 🆙Load Build Assets
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: dist
+  release:
+    if: github.event_name == 'push'
+    needs: build_and_test
+    name: Release Package 🏎️
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 👀 Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: $-node-$
+          restore-keys: |
+            $-node
+      - name: 🏗️ Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - name: 🤹‍♂️ Setup PNPM
+        uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 5.13.6
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile]
+      - name: 🛠️ Build
+        run: pnpm run build
+      - name: 🧪 TEST
+        run: pnpm run test:ci
+      - name: 🆙Load Coverage Reports
+        run: pnpx codecov
+        env: 
+          CODECOV_TOKEN: $
+      - name: 📦 Release to NPM
+        run: pnpx semantic-release
+        env:
+          GITHUB_TOKEN: $
+          NPM_TOKEN: $
