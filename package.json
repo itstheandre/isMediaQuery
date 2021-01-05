@@ -1,6 +1,6 @@
 {
   "name": "@solx/ismediaquery",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Utility-function-to-check-if-a-string-is-a-valid-media-query",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
