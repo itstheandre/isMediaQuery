@@ -35,16 +35,16 @@ describe("isMediaQuery", () => {
       it("if args are undefined", () => {
         // @ts-expect-error
         expect(() => isMediaQuery(undefined, undefined)).toThrow();
+        // @ts-ignore
         expect(() => isMediaQuery(undefined)).toThrow();
       });
       it("if args are null", () => {
         // @ts-expect-error
         expect(() => isMediaQuery(null, null)).toThrow();
+        // @ts-ignore
         expect(() => isMediaQuery(null)).toThrow();
       });
       it("if there is combination that is bad", () => {
-        // @ts-expect-error
-        expect(() => isMediaQuery("", {})).toThrow();
         // @ts-expect-error
         expect(() => isMediaQuery(1, { strict: true })).toThrow();
       });
@@ -71,11 +71,14 @@ describe("isMediaQuery", () => {
     it("just works", () => {
       const first = isMediaQuery("(min-width: 960px)");
       expect(first).toBeTruthy();
+      // doesnt work because it needs the parenthesis
+      // TODO Would be interesting to, eventually, add a way for these things to be transformed into the right one.
       expect(isMediaQuery("min-width: 950px")).toBe(false);
       expect(isMediaQuery("(max-height: 960px)")).toBeTruthy();
       expect(
         isMediaQuery("(max-width: 960px) and (min-height: 1000px)")
       ).toBeTruthy();
+      expect(isMediaQuery("")).toBe(false);
     });
   });
 });

@@ -46,8 +46,6 @@ describe("isMediaQuery", () => {
       });
       it("if there is combination that is bad", () => {
         // @ts-expect-error
-        expect(() => isMediaQuery("", {})).toThrow();
-        // @ts-expect-error
         expect(() => isMediaQuery(1, { strict: true })).toThrow();
       });
 
@@ -80,6 +78,7 @@ describe("isMediaQuery", () => {
       expect(
         isMediaQuery("(max-width: 960px) and (min-height: 1000px)")
       ).toBeTruthy();
+      expect(isMediaQuery("")).toBe(false);
     });
   });
 });
