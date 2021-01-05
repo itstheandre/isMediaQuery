@@ -2,7 +2,8 @@ import mediaFeatures from "@solx/css-features";
 import { discreteValues } from "@solx/css-features/dist/utils";
 import mediaQueryTypes from "@solx/css-media-types";
 import cssLengths from "@solx/css-units";
-import cssResolutionUnits from "css-resolution-units";
+
+const cssResolutionUnits = ["dpi", "dpcm", "dppx", "x"];
 
 const numberRe = "\\d+(\\.\\d+)?";
 const baseJoin = "|";
